@@ -7,15 +7,16 @@ spring:
     datasource:
         driverClassName: org.postgresql.Driver
     r2dbc:
-        url: r2dbc:postgresql://localhost:5432/postgres
-        username: username
-        password: 1234
+        url: r2dbc:postgresql://localhost:32768/advices_db
+        username: postgres
+        password: postgrespw
         properties:
             hibernate:
                 dialect: io.r2dbc.postgresql.PostgresqlDialect
+
 logging:
     level:
-        org.springframework.data.r2dbc: Debug
+        root: debug
 
 # actuator
 management:
