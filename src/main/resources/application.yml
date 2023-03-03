@@ -3,7 +3,7 @@ server:
         include-message: always
 spring:
     application:
-        adviser
+        teste
     datasource:
         driverClassName: org.postgresql.Driver
     r2dbc:
@@ -13,5 +13,25 @@ spring:
         properties:
             hibernate:
                 dialect: io.r2dbc.postgresql.PostgresqlDialect
+logging:
+    level:
+        org.springframework.data.r2dbc: Debug
+
+# actuator
+management:
+    endpoint:
+        health:
+            show-details: always
+        web:
+            exposure:
+                include:*
+info:
+    app:
+        name: @project.name@
+        description: @project.description@
+        version: @project.version@
+        encoding: @project.build.sourceEncoding@
+        java:
+            version: @java.version@
 
 
