@@ -1,0 +1,17 @@
+server:
+    error:
+        include-message: always
+spring:
+    application:
+        adviser
+    datasource:
+        driverClassName: org.postgresql.Driver
+    r2dbc:
+        url: r2dbc:postgresql://localhost:5432/postgres
+        username: username
+        password: 1234
+        properties:
+            hibernate:
+                dialect: io.r2dbc.postgresql.PostgresqlDialect
+
+
