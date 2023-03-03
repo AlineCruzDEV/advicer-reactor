@@ -14,9 +14,9 @@ spring:
             hibernate:
                 dialect: io.r2dbc.postgresql.PostgresqlDialect
 
-logging:
-    level:
-        root: debug
+#logging:
+#    level:
+#        root: debug
 
 # actuator
 management:
