@@ -7,7 +7,7 @@ spring:
     datasource:
         driverClassName: org.postgresql.Driver
     r2dbc:
-        url: r2dbc:postgresql://localhost:32768/advices_db
+        url: r2dbc:postgresql://localhost:5432/advices_db
         username: postgres
         password: postgrespw
         properties:
