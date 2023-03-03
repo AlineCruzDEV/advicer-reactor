@@ -15,3 +15,10 @@ create table users (
     email VARCHAR NOT NULL
 );
 insert into users (name, email) VALUES ('nome1', 'email1@email.com');
+
+create table topics (
+    id serial PRIMARY KEY,
+    name VARCHAR NOT NULL
+);
+insert into topics (name) VALUES ('love');
+insert into topics (name) VALUES ('work');
