@@ -11,7 +11,6 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("advices")
 public class AdviceEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column("id")
     private Long id;
 
