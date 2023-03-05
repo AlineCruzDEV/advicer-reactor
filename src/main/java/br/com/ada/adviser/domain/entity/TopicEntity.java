@@ -1,21 +1,23 @@
 package br.com.ada.adviser.domain.entity;
 
-import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
 @Table("topics")
-public class FavoriteTopicEntity {
+public class TopicEntity {
     @Id
     @Column("id")
     private Long id;
 
     @Column("name")
     private String name;
+
+//    @JoinColumn(name = "user_id", nullable = false)
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    private UserEntity user;
+    @Column("user_id")
+    private Long userId;
 }

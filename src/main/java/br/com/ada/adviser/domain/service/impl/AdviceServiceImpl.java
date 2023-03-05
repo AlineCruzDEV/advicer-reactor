@@ -8,7 +8,6 @@ import br.com.ada.adviser.web.dto.request.AdviceRequest;
 import br.com.ada.adviser.web.dto.response.AdviceResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-import reactor.core.CoreSubscriber;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
