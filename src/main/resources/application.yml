@@ -7,7 +7,7 @@ spring:
     datasource:
         driverClassName: org.postgresql.Driver
     r2dbc:
-        url: r2dbc:postgresql://localhost:5432/advices_db
+        url: r2dbc:postgresql://localhost:32768/postgres
         username: postgres
         password: postgrespw
         properties:
@@ -34,5 +34,9 @@ info:
         encoding: @project.build.sourceEncoding@
         java:
             version: @java.version@
-
+resilience4j.circuitbreaker:
+    instances:
+        getRandomAdvice:
+            slidingWindowSize: 10
+            minimumNumberOfCalls: 5
 

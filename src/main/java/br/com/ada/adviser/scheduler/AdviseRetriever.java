@@ -8,13 +8,14 @@ import br.com.ada.adviser.domain.service.AdviceService;
 import br.com.ada.adviser.web.client.AdviceSlipClient;
 import br.com.ada.adviser.web.dto.request.AdviceRequest;
 import br.com.ada.adviser.web.dto.response.AdviceSlipResponse;
+import br.com.ada.adviser.web.gateway.AdviceSlipGateway;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
 public class AdviseRetriever {
 	@Autowired
-	private AdviceSlipClient adviceSlipClient;
+	private AdviceSlipGateway adviceSlipGateway;
 	
 	@Autowired
 	private AdviceService adviceService;
@@ -22,7 +23,7 @@ public class AdviseRetriever {
 	@Scheduled(fixedDelay = 10000)
 	public void getAdvice() {
 		try {
-			AdviceSlipResponse response = adviceSlipClient.getRandomAdvice();
+			AdviceSlipResponse response = adviceSlipGateway.getRandomAdvice();
 			String advice = response.getSlip().getAdvice();
 			adviceService.create(new AdviceRequest(advice)).subscribe(adviceRequest -> {
 				log.info("Novo conselho: {}", advice);
