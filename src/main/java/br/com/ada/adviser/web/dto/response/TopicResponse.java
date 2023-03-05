@@ -5,7 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FavoriteTopicResponse {
+public class TopicResponse {
     private Long id;
     private String name;
+    private Long userId;
 }
