@@ -25,7 +25,7 @@ create table public.topics
     user_id INT not null
 );
 
-insert into topics (name) VALUES ('love', '1');
-insert into topics (name) VALUES ('god', '1');
-insert into topics (name) VALUES ('work', '2');
-insert into topics (name) VALUES ('friend', '2');
+insert into topics (name, user_id) VALUES ('love', '1');
+insert into topics (name, user_id) VALUES ('god', '1');
+insert into topics (name, user_id) VALUES ('work', '2');
+insert into topics (name, user_id) VALUES ('friend', '2');
