@@ -4,19 +4,23 @@ import br.com.ada.adviser.domain.entity.AdviceEntity;
 import br.com.ada.adviser.domain.repository.AdviceRepository;
 import br.com.ada.adviser.domain.service.AdviceService;
 import br.com.ada.adviser.domain.utils.AdviceConvertUtils;
+import br.com.ada.adviser.infra.topics.AdviceTopicHandler;
 import br.com.ada.adviser.web.dto.request.AdviceRequest;
 import br.com.ada.adviser.web.dto.response.AdviceResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 @Service
 public class AdviceServiceImpl implements AdviceService {
 
     private AdviceRepository repository;
-    public AdviceServiceImpl(final AdviceRepository repository) {
+    private AdviceTopicHandler adviceTopicHandler;
+    public AdviceServiceImpl(final AdviceRepository repository, final AdviceTopicHandler adviceTopicHandler) {
         this.repository = repository;
+        this.adviceTopicHandler = adviceTopicHandler;
     }
 
     public Flux<AdviceResponse> getAll(){
@@ -31,8 +35,13 @@ public class AdviceServiceImpl implements AdviceService {
 
     public Mono<AdviceResponse> create(final AdviceRequest request){
         final AdviceEntity entity = AdviceConvertUtils.toEntity(request);
-        final Mono<AdviceEntity> createdEntity = repository.save(entity);
-        return createdEntity.map(AdviceConvertUtils::toResponse);
+        final Mono<AdviceResponse> adviceResponseMono = repository.save(entity).map(AdviceConvertUtils::toResponse);
+
+        adviceResponseMono
+                .subscribeOn(Schedulers.newSingle("New advice"))
+                    .subscribe(adviceTopicHandler::sendTopic);
+
+        return adviceResponseMono;
     }
 
     public Mono<Void> delete(@PathVariable("id") Long id) {
