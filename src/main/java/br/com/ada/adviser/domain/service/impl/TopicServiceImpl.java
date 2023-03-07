@@ -1,13 +1,16 @@
 package br.com.ada.adviser.domain.service.impl;
 
 import br.com.ada.adviser.domain.entity.TopicEntity;
+import br.com.ada.adviser.domain.entity.UserEntity;
 import br.com.ada.adviser.domain.repository.TopicRepository;
 import br.com.ada.adviser.domain.repository.UserRepository;
 import br.com.ada.adviser.domain.service.TopicService;
 import br.com.ada.adviser.domain.service.UserService;
 import br.com.ada.adviser.domain.utils.TopicConvertUtils;
+import br.com.ada.adviser.domain.utils.UserConvertUtils;
 import br.com.ada.adviser.web.dto.request.TopicRequest;
 import br.com.ada.adviser.web.dto.response.TopicResponse;
+import br.com.ada.adviser.web.dto.response.UserResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +39,20 @@ public class TopicServiceImpl implements TopicService {
         final TopicEntity entity = TopicConvertUtils.toEntity(request);
         final Mono<TopicEntity> createdEntity = repository.save(entity);
         return createdEntity.map(TopicConvertUtils::toResponse);
+    }
+
+    @Override
+    public Flux<UserResponse> findUserIdsByTopic(String name) {
+        final Flux<Long> userIds = repository.findUserIdsByTopic(name);
+        userIds.log().subscribe(id -> System.out.print(id + ", "));
+//       Flux<UserEntity> userEntityFlux = userIds.map(
+//            id -> {
+//                    final Mono<UserEntity> userEntity = userRepository.findById(id);
+//            },
+//            error -> log.error("Error " + error)
+//        );
+        final Flux<UserEntity> userEntityFlux2 = userIds.map(UserConvertUtils::toResponse);
+        return null;
     }
 
 }

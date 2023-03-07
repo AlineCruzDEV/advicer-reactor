@@ -13,8 +13,8 @@ public class AdviceTopicPublisher {
         this.advicesSinks = Sinks.many().multicast().onBackpressureBuffer();
     }
 
-    public void publish(AdviceResponse salesResponse) {
-        this.advicesSinks.tryEmitNext(salesResponse);
+    public void publish(AdviceResponse adviceResponse) {
+        this.advicesSinks.tryEmitNext(adviceResponse);
     }
     
     public Flux<AdviceResponse> getNewsFlux() {

@@ -3,6 +3,7 @@ package br.com.ada.adviser.web.controller;
 import br.com.ada.adviser.domain.service.TopicService;
 import br.com.ada.adviser.web.dto.request.TopicRequest;
 import br.com.ada.adviser.web.dto.response.TopicResponse;
+import br.com.ada.adviser.web.dto.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,5 +32,12 @@ public class TopicController {
                 topic -> ResponseEntity.created(URI.create("/topics/" + topic.getId())).body(topic)
         );
     }
+
+    @GetMapping("/{name}/users")
+    public ResponseEntity<Flux<UserResponse>> getUserIdsByTopic(@PathVariable("name") String name) {
+        final Flux<UserResponse> users = service.findUserIdsByTopic(name);
+        return ResponseEntity.ok(users);
+    }
+
 
 }

@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.scheduler.Schedulers;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Slf4j
 @Component
 public class AdviceTopicHandlerImpl implements AdviceTopicHandler {
@@ -21,9 +24,10 @@ public class AdviceTopicHandlerImpl implements AdviceTopicHandler {
 
     public AdviceTopicHandlerImpl(AdviceTopicPublisher newsletterPublisher) {
         newsletterPublisher.getNewsFlux().subscribeOn(Schedulers.newSingle("New thread")).subscribe(
-            news -> {
+            advice -> {
                 try {
-                    sendEmail.send(news);
+                    final List<String> words = splitAdvicesInWords(advice);
+                    sendEmail.send(advice);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -35,6 +39,12 @@ public class AdviceTopicHandlerImpl implements AdviceTopicHandler {
     @Override
     public void sendTopic(AdviceResponse adviceResponse) {
         adviceTopicPublisher.publish(adviceResponse);
+    }
+
+    private List<String> splitAdvicesInWords(final AdviceResponse adviceResponse) {
+        final List<String> words = Arrays.asList(adviceResponse.getAdvice().split(" "));
+        words.forEach(w -> log.info(w));
+        return words;
     }
 
 }
