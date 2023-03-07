@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Collection;
+import java.util.List;
+
 @Slf4j
 @Service
 public class TopicServiceImpl implements TopicService {
@@ -44,15 +47,21 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public Flux<UserResponse> findUserIdsByTopic(String name) {
         final Flux<Long> userIds = repository.findUserIdsByTopic(name);
-        userIds.log().subscribe(id -> System.out.print(id + ", "));
-//       Flux<UserEntity> userEntityFlux = userIds.map(
-//            id -> {
-//                    final Mono<UserEntity> userEntity = userRepository.findById(id);
-//            },
-//            error -> log.error("Error " + error)
-//        );
-        final Flux<UserEntity> userEntityFlux2 = userIds.map(UserConvertUtils::toResponse);
-        return null;
+        userIds.log().subscribe(System.out::print);
+        Flux<UserEntity> userEntityFlux = this.getUsers(userIds);
+        return userEntityFlux.map(UserConvertUtils::toResponse);
+    }
+
+    @Override
+    public Flux<UserResponse> findUserIdsByTopic(List<String> names) {
+        final Flux<Long> userIds = repository.findUserIdsByTopics(names);
+        userIds.log().subscribe(System.out::print);
+        Flux<UserEntity> userEntityFlux = this.getUsers(userIds);
+        return userEntityFlux.map(UserConvertUtils::toResponse);
+    }
+
+    private Flux<UserEntity> getUsers(Flux<Long> userIds) {
+        return userIds.flatMap(id -> userRepository.findById(id));
     }
 
 }

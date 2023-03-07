@@ -7,10 +7,17 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 
+import java.util.List;
+
 @Repository
 public interface TopicRepository extends ReactiveCrudRepository<TopicEntity, Long> {
     @Query(value = "SELECT DISTINCT t.user_id " +
             "FROM TOPICS t " +
-            "WHERE t.name = :name ")
+            "WHERE UPPER(t.name) = UPPER(:name) ")
     Flux<Long> findUserIdsByTopic(@Param("name") String name);
+
+    @Query(value = "SELECT DISTINCT t.user_id " +
+            "FROM TOPICS t " +
+            "WHERE t.name IN (:names)")
+    Flux<Long> findUserIdsByTopics(@Param("names") List<String> names);
 }

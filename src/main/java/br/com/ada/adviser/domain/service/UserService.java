@@ -11,4 +11,5 @@ public interface UserService {
     Mono<UserResponse> getById(final Long id);
     Mono<UserResponse> create(final UserRequest request);
     Flux<TopicResponse> getTopics(long id);
+
 }

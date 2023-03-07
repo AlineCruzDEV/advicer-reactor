@@ -39,7 +39,7 @@ public class AdviceServiceImpl implements AdviceService {
 
         adviceResponseMono
                 .subscribeOn(Schedulers.newSingle("New advice"))
-                    .subscribe(adviceTopicHandler::sendTopic);
+                    .subscribe(adviceTopicHandler::sendNotification);
 
         return adviceResponseMono;
     }
