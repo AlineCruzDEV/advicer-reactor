@@ -32,6 +32,12 @@ public class UserConvertUtils {
         return entity;
     }
 
+    public static UserEntity toResponse(final Long userId) {
+        final UserEntity entity = new UserEntity();
+        entity.setId(entity.getId());
+        return entity;
+    }
+
 //    public static UserEntity toEntity(final UserIdRequest request) {
 //        final UserEntity entity = new UserEntity();
 //        entity.setName(request.getName());
