@@ -47,7 +47,7 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public Flux<UserResponse> findUserIdsByTopic(String name) {
         final Flux<Long> userIds = repository.findUserIdsByTopic(name);
-        userIds.log().subscribe(System.out::print);
+        //userIds.log().subscribe(System.out::print);
         Flux<UserEntity> userEntityFlux = this.getUsers(userIds);
         return userEntityFlux.map(UserConvertUtils::toResponse);
     }
@@ -55,7 +55,7 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public Flux<UserResponse> findUserIdsByTopic(List<String> names) {
         final Flux<Long> userIds = repository.findUserIdsByTopics(names);
-        userIds.log().subscribe(System.out::print);
+        //userIds.log().subscribe(System.out::print);
         Flux<UserEntity> userEntityFlux = this.getUsers(userIds);
         return userEntityFlux.map(UserConvertUtils::toResponse);
     }
