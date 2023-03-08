@@ -18,6 +18,6 @@ public interface TopicRepository extends ReactiveCrudRepository<TopicEntity, Lon
 
     @Query(value = "SELECT DISTINCT t.user_id " +
             "FROM TOPICS t " +
-            "WHERE t.name IN (:names)")
+            "WHERE UPPER(t.name) IN (:names)")
     Flux<Long> findUserIdsByTopics(@Param("names") List<String> names);
 }

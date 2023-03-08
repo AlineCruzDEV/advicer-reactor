@@ -58,6 +58,7 @@ public class AdviceTopicHandlerImpl implements AdviceTopicHandler {
     private List<String> splitAdvicesInWords(final AdviceResponse adviceResponse) {
         final List<String> words = Arrays.asList(
                 adviceResponse.getAdvice()
+                		.toUpperCase()
                         .trim()
                         .replace(".", "")
                         .replace(",", "")

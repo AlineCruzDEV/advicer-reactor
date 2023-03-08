@@ -19,7 +19,7 @@ public class AdviseRetriever {
 	@Autowired
 	private AdviceService adviceService;
 
-	@Scheduled(fixedDelay = 10000)
+	//@Scheduled(fixedDelay = 2000)
 	public void getAdvice() {
 		try {
 			AdviceSlipResponse response = adviceSlipClient.getRandomAdvice();
