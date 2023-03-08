@@ -14,3 +14,6 @@ Trata-se de um aconselhador usando programação reativa. São consumidos consel
 De acordo com o [Manifesto Reativo](https://www.reactivemanifesto.org/), uma aplicação reativa deve ser resiliente, elástica, responsiva e orientada à mensagem. Para uma aplicação como esta apresentada, onde precisa-se de disaparo de evento e que não seja bloqueante para que aja consumo simultâneo, torna-se valiosíssima essa abordagem. 
 
 Aplicações assíncronas e não bloqueantes evitam bloqueios, gargalos e estresse do usuário, não é mesmo? :grin:
+
+### Diagrama da aplicação
+![WhatsApp Image 2023-03-07 at 21 37 47](https://user-images.githubusercontent.com/42226293/223861915-066c6d26-8d42-4fc7-bd14-6a93cdc9cf09.jpeg)
